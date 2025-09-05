@@ -153,15 +153,13 @@ def setup_config(colab: bool = False, local: bool = False) -> None:
         with open("config.json", "w") as f:
             f.write(json.dumps(config, indent=2))
         return
-    is_remote = False if local else ask_yes_no("are you using this remotely?")
+    is_remote = False if local else True
     remote_mode = "none"
     if is_remote:
-        remote_mode = "ngrok" if ask_yes_no("do you want to use ngrok?") else "cloudflared"
+        remote_mode = "ngrok" if True else "cloudflared"
     ngrok_token = ""
     if remote_mode == "ngrok":
-        ngrok_token = input(
-            "copy paste your token from your ngrok dashboard (https://dashboard.ngrok.com/get-started/your-authtoken) (requires account): "
-        )
+        ngrok_token = "Y"
 
     with open("config.json", "w") as f:
         f.write(
